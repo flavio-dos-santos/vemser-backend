@@ -1,9 +1,8 @@
 package com.dbc.exercicios1;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
-public class exercicio4 {
+public class Exercicio4 {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
 

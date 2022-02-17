@@ -2,7 +2,7 @@ package com.dbc.exercicios1;
 
 import java.util.Scanner;
 
-public class exercicio6 {
+public class Exercicio6 {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
 
@@ -28,6 +28,26 @@ public class exercicio6 {
 
             case "feliz":
                 System.out.println("happy");
+                break;
+
+            case "dog":
+                System.out.println("cachorro");
+                break;
+
+            case "time":
+                System.out.println("tempo");
+                break;
+
+            case "love":
+                System.out.println("amor");
+                break;
+
+            case "city":
+                System.out.println("cidade");
+                break;
+
+            case "happy":
+                System.out.println("feliz");
                 break;
 
             default:

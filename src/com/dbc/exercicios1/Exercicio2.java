@@ -2,7 +2,7 @@ package com.dbc.exercicios1;
 
 import java.util.Scanner;
 
-public class exercicio2 {
+public class Exercicio2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         float matematica, portugues, geografia, historia, media;

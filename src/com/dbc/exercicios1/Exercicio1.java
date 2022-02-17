@@ -2,14 +2,14 @@ package com.dbc.exercicios1;
 
 import java.util.Scanner;
 
-public class exercicio1 {
+public class Exercicio1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite seu nome:");
         String nomeUsuario = scanner.nextLine();
 
         System.out.println("Digite sua idade:");
-        String idade = scanner.nextLine();
+        int idade = scanner.nextInt();
 
         System.out.println("Digite a cidade onde mora:");
         String cidade = scanner.nextLine();
