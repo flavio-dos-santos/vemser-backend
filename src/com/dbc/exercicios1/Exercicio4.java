@@ -15,7 +15,7 @@ public class Exercicio4 {
 
         switch (num){
             case 1:
-                System.out.println("selecione a cidade de 1 ou 2!");
+                System.out.println("selecione a cidade  1 ou 2!");
                 System.out.println("1- Ceilandia!");
                 System.out.println("2- Samambaia!");
                 int num1 = scanner.nextInt();
@@ -29,7 +29,7 @@ public class Exercicio4 {
                 break;
 
             case 2:
-                System.out.println("selecione a cidade de 1 ou 2!");
+                System.out.println("selecione a cidade  1 ou 2!");
                 System.out.println("1- Niteroi!");
                 System.out.println("2- Angra dos Reis!");
                 int num2 = scanner.nextInt();
