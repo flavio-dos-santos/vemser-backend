@@ -1,65 +1,88 @@
 package com.dbc.aula03.homework100;
 
 
+import java.util.Arrays;
+
 public class Cliente {
-    String nome;
-    String cpf;
-    Contato contatos[] = new Contato[2];
-    Endereco enderecos[] = new Endereco[2];
+   private String nome;
+   private String cpf;
+   private Contato contatos[] = new Contato[2];
+   private Endereco enderecos[] = new Endereco[2];
 
 
 
-    public void imprimirCliente(){
-        System.out.println("nome: " + this.nome + "\ncpf: " + this.cpf);
+    public Cliente(String nome, String cpf){
+        this.nome = nome;
+        this.cpf = cpf;
+        this.contatos[0] = new Contato("whats","(61)98894512",1);
+        this.contatos[1] = new Contato("whats Empresa","(61)98854123", 2);
+        this.enderecos[0] = new Endereco(1,"qnk 14 conj k", 48,"casa","78451221","tabuao","SP","Brasil");
+        this.enderecos[1] = new Endereco(2,"qnk 16 cj J", 64,"loja","78541237","maua","SP","Brasil");
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public Contato[] getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(Contato[] contatos) {
+        this.contatos = contatos;
+    }
+
+    public Endereco[] getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(Endereco[] enderecos) {
+        this.enderecos = enderecos;
+    }
+
+
+    public void imprimirEnderecos() {
+        for(int i = 0; i < this.enderecos.length; ++i) {
+            if (this.enderecos[i] != null) {
+                this.enderecos[i].imprimirEndereco();
+            }
+        }
+
+    }
+    public void imprimirContatos() {
+        for(int i = 0; i < this.contatos.length; ++i) {
+            if (this.contatos[i] != null) {
+                this.contatos[i].imprimirContato();
+            }
+        }
+
+    }
+    public void imprimirCliente() {
+        System.out.println(this);
         this.imprimirContatos();
         this.imprimirEnderecos();
     }
 
-
-
-    public void contato1(String desc1, String tel1, int tipo) {
-        this.contatos[0] = new Contato();
-        this.contatos[0].descricao = desc1;
-        this.contatos[0].telefone = tel1;
-        this.contatos[0].tipo = tipo;
-    }
-
-    public void contato2(String desc1, String tel1, int tipo) {
-        this.contatos[1] = new Contato();
-        this.contatos[1].descricao = desc1;
-        this.contatos[1].telefone = tel1;
-        this.contatos[1].tipo = tipo;
-
-    }
-    public void endereco1(int tipo ,String logradouro, int numero, String complemento, String cep, String cidade, String estado, String pais){
-        this.enderecos[0] = new Endereco();
-        this.enderecos[0].tipo = tipo;
-        this.enderecos[0].logradouro = logradouro;
-        this.enderecos[0].numero = numero;
-        this.enderecos[0].complemento = complemento;
-        this.enderecos[0].cep = cep;
-        this.enderecos[0].cidade = cidade;
-        this.enderecos[0].estado = estado;
-        this.enderecos[0].pais = pais;
-    }
-    public void endereco2(int tipo, String logradouro, int numero, String complemento, String cep, String cidade, String estado, String pais) {
-        this.enderecos[1] = new Endereco();
-        this.enderecos[1].tipo = tipo;
-        this.enderecos[1].logradouro = logradouro;
-        this.enderecos[1].numero = numero;
-        this.enderecos[1].complemento = complemento;
-        this.enderecos[1].cep = cep;
-        this.enderecos[1].cidade = cidade;
-        this.enderecos[1].estado = estado;
-        this.enderecos[1].pais = pais;
-    }
-    public void imprimirContatos(){
-        contatos[0].imprimiContato();
-        contatos[1].imprimiContato();
-    }
-    public void imprimirEnderecos(){
-        enderecos[0].imprimirEndereco();
-        enderecos[1].imprimirEndereco();
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' + "\n" +
+                ", cpf='" + cpf + '\'' + "\n" +
+                ", contatos=" + Arrays.toString(contatos) + "\n " +
+                ", enderecos=" + Arrays.toString(enderecos) + "\n"+
+                '}';
     }
 }
 

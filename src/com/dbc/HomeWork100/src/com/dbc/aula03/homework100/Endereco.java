@@ -1,25 +1,105 @@
 package com.dbc.aula03.homework100;
 
 public class Endereco {
-    public int tipo;
-    public String logradouro;
-    public int numero;
-    public String complemento;
-    public String cep;
-    public String cidade;
-    public String estado;
-    public String pais;
+    private int tipo;
+    private String logradouro;
+    private int numero;
+    private String complemento;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String pais;
 
+ public Endereco(int tipo, String logradouro, int numero, String complemento, String cep, String cidade, String estado, String pais){
+     this.tipo = tipo;
+     this.logradouro = logradouro;
+     this.numero = numero;
+     this.complemento = complemento;
+     this.cep = cep;
+     this.cidade = cidade;
+     this.estado = estado;
+     this.pais = pais;
+ }
 
-
-        public void imprimirEndereco () {
-            if (this.tipo == 1) {
-                System.out.println("endereço residencial: " + this.logradouro + " " + this.numero + "\n complemento: " + this.complemento + "\n cep: " + this.cep + "\n cidade: " + this.cidade + "\n estado: " + this.estado + "\n pais:  " + this.pais);
-            } else if (this.tipo == 2) {
-                System.out.println("endereço comercial: " + this.logradouro + " " + this.numero + "\n complemento: " + this.complemento + "\n cep: " + this.cep + "\n cidade: " + this.cidade + "\n estado: " + this.estado + "\n pais: " + this.pais);
-            } else {
-                System.out.println("invalido!");
-            }
-        }
+    public int getTipo() {
+        return tipo;
     }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+    public void imprimirEndereco(){
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "tipo=" + tipo +
+                ", logradouro='" + logradouro + '\'' +
+                ", numero=" + numero +
+                ", complemento='" + complemento + '\'' +
+                ", cep='" + cep + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", estado='" + estado + '\'' +
+                ", pais='" + pais + '\'' +
+                '}';
+    }
+}
 

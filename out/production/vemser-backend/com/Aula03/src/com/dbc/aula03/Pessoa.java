@@ -6,6 +6,50 @@ public class Pessoa {
     int idade;
     String whatsapp;
 
+    public Pessoa(){
+
+ }
+
+ public Pessoa(String nome, String sobrenome, int idade, String whatsapp){
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+    this.idade = idade;
+    this.whatsapp = whatsapp;
+ }
+
+    public void setNome(String nome){
+        this.nome = nome ;
+
+    }
+    public String getNome(){
+        return nome;
+    }
+    public void setSobrenome(String sobrenome){
+        this.sobrenome = sobrenome;
+
+    }
+    public String getSobrenome(){
+        return sobrenome;
+    }
+    public void setIdade(int idade){
+        this.idade = idade;
+    }
+    public int getIdade(){
+        return idade;
+    }
+    public void setWhatsapp(String whatsapp){
+        this.whatsapp = whatsapp;
+    }
+    public String getWhatsapp(){
+        return whatsapp;
+    }
+
+
+
+
+
+
+
     public void conversar(Pessoa pessoaConversa){
         System.out.println(this.nome + " conversou com " + pessoaConversa.nome );
     }

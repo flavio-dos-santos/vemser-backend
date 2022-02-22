@@ -3,22 +3,18 @@ package com.dbc.aula03;
 public class Main {
 
     public static void main(String[] args) {
-        Pessoa flavio = new Pessoa();
-        flavio.idade = 30;
-        flavio.nome = "flavio";
-        flavio.sobrenome = "sobrinho";
-        flavio.whatsapp = "whats";
-
-        Pessoa gustavo = new Pessoa();
-        gustavo.idade = 26;
-        gustavo.nome = "gustavo";
-        gustavo.sobrenome = "barbosa";
-        gustavo.whatsapp = "whats";
+        Pessoa p1 = new Pessoa("joao","Marinho",50,"whats");
 
 
-        System.out.println(flavio.retornarNomeCompleto());
-        flavio.mandarWhatsApp(gustavo, "uashuahusahuash");
-        flavio.conversar(gustavo);
-        flavio.ehMaiorDeIdade();
+
+
+
+
+        System.out.println(p1.retornarNomeCompleto());
+        p1.setNome("maria");
+        System.out.println(p1.retornarNomeCompleto());
+//        flavio.mandarWhatsApp(gustavo, "uashuahusahuash");
+//        flavio.conversar(gustavo);
+//        flavio.ehMaiorDeIdade();
     }
 }

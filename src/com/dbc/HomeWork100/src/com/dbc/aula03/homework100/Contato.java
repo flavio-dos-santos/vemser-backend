@@ -2,19 +2,54 @@ package com.dbc.aula03.homework100;
 
 public class Contato {
 
-    public String descricao = "";
-    public String telefone = "";
-    public int tipo;
+   private String descricao = "";
+   private String telefone = "";
+   private int tipo;
 
 
-
-    public void imprimiContato() {
-        if (this.tipo == 1) {
-            System.out.println("telefone residencial: " + this.telefone);
-        } else if (this.tipo == 2) {
-            System.out.println("telefone comercial: " + this.telefone);
-        } else {
-            System.out.println("invalido!");
-        }
+    public Contato(String descricao, String telefone, int tipo){
+        this.descricao = descricao;
+        this.telefone = telefone;
+        this.tipo = tipo;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public void imprimirContato(){
+        System.out.println(this);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Contato{" +
+                "descricao='" + descricao + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", tipo=" + tipo +
+                '}';
+    }
+
+
 }
