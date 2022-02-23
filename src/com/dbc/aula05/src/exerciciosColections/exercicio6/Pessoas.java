@@ -1,4 +1,4 @@
-package exerciciosColections;
+package exerciciosColections.exercicio6;
 
 public class Pessoas {
        private String nome = "";

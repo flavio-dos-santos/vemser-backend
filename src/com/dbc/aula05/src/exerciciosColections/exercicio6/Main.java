@@ -1,4 +1,4 @@
-package exerciciosColections;
+package exerciciosColections.exercicio6;
 
 import java.util.ArrayList;
 import java.util.Comparator;
