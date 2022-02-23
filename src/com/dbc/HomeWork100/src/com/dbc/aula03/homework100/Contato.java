@@ -14,6 +14,7 @@ public class Contato {
     }
 
     public String getDescricao() {
+
         return descricao;
     }
 

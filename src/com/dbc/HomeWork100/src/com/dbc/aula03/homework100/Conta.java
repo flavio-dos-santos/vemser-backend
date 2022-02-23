@@ -52,7 +52,8 @@ public abstract class Conta implements Movimentacao {
     @Override
     public boolean sacar(double valor) {
         if (valor > 0 && valor < saldo) {
-            System.out.println(" Seu saldo total é : " + this.saldo);
+            this.saldo -= valor;
+            System.out.println(" você sacou : R$" + valor + "\nseu saldo atual é de: "+ this.saldo);
            return true;
         } else{
             System.out.println(" Saldo insuficiente!");
@@ -66,11 +67,12 @@ public abstract class Conta implements Movimentacao {
 
     @Override
     public boolean depositar(double valor) {
-        if (valor <= 0.0D) {
+        if (valor <= 0.0) {
             System.err.println("impossível depositar valor negativo ou zero");
             return false;
         } else {
             this.saldo += valor;
+            System.out.println("seu saldo é de: " + this.saldo);
             return true;
         }
     }
@@ -80,7 +82,7 @@ public abstract class Conta implements Movimentacao {
         if (this.saldo > valor) {
             this.sacar(valor);
             conta.depositar(valor);
-            System.out.println("transferência concluída");
+            System.out.println("transferência concluída\n" + "saldo da conta poupança: R$" + this.saldo);
             return true;
         } else {
             System.out.println("saldo insuficiente");

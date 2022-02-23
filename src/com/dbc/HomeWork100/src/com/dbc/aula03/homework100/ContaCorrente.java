@@ -20,6 +20,20 @@ public class ContaCorrente extends Conta implements Impressao{
         valor = 300;
     }
 
+    public boolean sacar( double valor) {
+        double saldoMaisCheque = getSaldo() + chequeEspecial;
+        double v = getSaldo() - valor;
+        if (valor > 0 && valor < saldoMaisCheque) {
+            System.out.println(" você sacou : R$" + valor + " seu saldo atual é de: R$" + v
+            + "\n");
+            return true;
+        } else{
+            System.out.println(" saldo insuficiente!");
+            return false;
+        }
+
+    }
+
     @Override
     public void imprimir() {
         System.out.println(getCliente() + "\nnumero da conta corrente: " + getNumeroConta() + "\nagencia: " + getAgencia() + "\nsaldo: " + getSaldo() + "\ncheque especial: " + chequeEspecial);

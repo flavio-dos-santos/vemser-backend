@@ -8,6 +8,9 @@ public class ContaPoupanca extends Conta implements Impressao {
         super(cliente, numeroConta, agencia, saldo);
          }
 
+         public void creditarTaxa(){
+             System.out.println("seu saldo é: R$" + (getSaldo() * JUROS_MENSAL) + " com juros de 1.01% ao mês!");
+         }
 
         @Override
         public void imprimir() {
