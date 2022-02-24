@@ -41,7 +41,7 @@ public class Main {
                             public int compare(Pessoas o1, Pessoas o2) {
                                 int comparacao1 = o1.getNome().compareTo(o2.getNome());
                                 if(comparacao1 != 0){
-                                    return comparacao1;
+                                    return o1.getNome().compareTo(o2.getNome());
                                 }
                                 return o1.getIdade() - o2.getIdade();
                             }

@@ -12,10 +12,10 @@ public class ContaPagamento extends Conta implements Impressao{
 
     @Override
     public boolean sacar( double valor) {
-        double valorMaisTaxa = valor += TAXA_SAQUE;
+        double valorMaisTaxa = valor + TAXA_SAQUE;
         if (valor > 0 && valorMaisTaxa < getSaldo()) {
             setSaldo(getSaldo() - valorMaisTaxa);
-            System.out.println(" você sacou : R$" + (valor - TAXA_SAQUE) + " seu saldo atual é de: R$" + getSaldo());
+            System.out.println(" você sacou : R$" + valor + " seu saldo atual é de: R$" + getSaldo());
             return true;
         } else{
             System.out.println(" Sua conta não pode ficar negativa!");
