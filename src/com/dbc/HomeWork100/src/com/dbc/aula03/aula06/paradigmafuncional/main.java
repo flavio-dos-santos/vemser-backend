@@ -29,5 +29,12 @@ public class main {
         Function<Double, Double> cosThenSqrt = cos.andThen(sqrt);
 
         System.out.println(cosThenSqrt.apply(1.0));
+
+        //9- com o mapa da questão 8, retornar o nome com o id=2
+        // System.out.println("========= Questão 9 - com o mapa da questão 8, retornar o nome com o id=2");
+        // String nome1 = idsNomes.keySet().stream().filter(x->x==2)
+        // .map(chave -> idsNomes.get(chave))
+        // .reduce("", (chave1, chave2) -> chave1+chave2);
+        // Jeito fácil         String nome = idsNomes.get(2);         System.out.println(nome1);
     }
 }

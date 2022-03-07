@@ -1,2 +1,5 @@
-package aula07;public class exceptions {
+package aula07;
+
+public class exceptions {
+
 }

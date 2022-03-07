@@ -2,9 +2,11 @@ package aula06;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
-    public class HomeworkStream {
+public class HomeworkStream {
         public static void main(String[] args) {
             List<Pessoa> lista = new ArrayList<>();
             int i = 0;
@@ -68,7 +70,7 @@ import java.util.List;
 
 
 
-
+//
 //       List<Integer> todosIds = lista.stream()
 //               .map(Pessoa::getId)
 //               .collect(Collectors.toList());
