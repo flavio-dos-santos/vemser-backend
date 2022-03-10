@@ -192,7 +192,7 @@
 								}
 							],
 							"cookie": [],
-							"body": ""
+							"body": null
 						}
 					]
 				},
@@ -401,7 +401,7 @@
 					]
 				},
 				{
-					"name": "PutContato",
+					"name": "PutContatoIdC",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -474,7 +474,7 @@
 					]
 				},
 				{
-					"name": "DelContatoId",
+					"name": "DelContatoIdC",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -538,7 +538,7 @@
 								}
 							],
 							"cookie": [],
-							"body": ""
+							"body": null
 						}
 					]
 				},
