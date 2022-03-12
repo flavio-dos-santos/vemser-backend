@@ -1,20 +1,28 @@
 package br.com.dbc.vemser.pessoaapi.Controller;
 
 
+
+
 import br.com.dbc.vemser.pessoaapi.Entidades.Pessoa;
 import br.com.dbc.vemser.pessoaapi.Service.PessoaService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")// localhost:8080/pessoa
+
 public class PessoaController {
+
+
+    @Autowired
     private PessoaService pessoaService;
 
-    public PessoaController(){
-        pessoaService = new PessoaService();
-    }
+//    public PessoaController(){
+//        pessoaService = new PessoaService();
+//    }
 
     @GetMapping("/Hello")// localhost:8080/pessoa/hello
     public String hello(){

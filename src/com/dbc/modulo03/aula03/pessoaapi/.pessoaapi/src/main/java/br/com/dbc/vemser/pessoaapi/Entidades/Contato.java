@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.Entidades;
+package br.com.dbc.vemser.pessoaapi.Controller.Entidades;
 
 public class Contato {
     private Integer idContato;

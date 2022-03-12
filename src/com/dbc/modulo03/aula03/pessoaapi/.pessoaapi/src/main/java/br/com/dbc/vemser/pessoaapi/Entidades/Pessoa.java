@@ -1,7 +1,5 @@
 package br.com.dbc.vemser.pessoaapi.Entidades;
 
-import br.com.dbc.vemser.pessoaapi.Service.PessoaService;
-
 import java.time.LocalDate;
 
 public class Pessoa {

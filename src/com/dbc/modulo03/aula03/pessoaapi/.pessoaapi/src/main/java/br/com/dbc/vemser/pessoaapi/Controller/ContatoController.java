@@ -1,7 +1,8 @@
 package br.com.dbc.vemser.pessoaapi.Controller;
 
-import br.com.dbc.vemser.pessoaapi.Entidades.Contato;
-import br.com.dbc.vemser.pessoaapi.Service.ContatoService;
+import br.com.dbc.vemser.pessoaapi.Controller.Entidades.Contato;
+import br.com.dbc.vemser.pessoaapi.Controller.Service.ContatoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,11 +10,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/contato") //localhost:8080/contato
 public class ContatoController {
+
+    @Autowired
     private ContatoService contatoService;
 
-    public ContatoController(){
-        contatoService = new ContatoService();
-    }
+//    public ContatoController(){
+//        contatoService = new ContatoService();
+//    }
 
     @PostMapping("/{idPessoa}")
     public Contato create(@PathVariable("idPessoa") Integer id, @RequestBody Contato contato){
