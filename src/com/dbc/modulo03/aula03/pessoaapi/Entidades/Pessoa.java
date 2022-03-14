@@ -1,11 +1,22 @@
 package br.com.dbc.vemser.pessoaapi.Entidades;
 
+import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 public class Pessoa {
     private Integer idPessoa;
+    @NotEmpty
     private String nome;
+    @NotNull
+    @Past
     private LocalDate dataNascimento;
+    @CPF
     String cpf;
 
     public Pessoa(){

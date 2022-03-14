@@ -1,7 +1,9 @@
-package br.com.dbc.vemser.pessoaapi.Controller.Service;
+package br.com.dbc.vemser.pessoaapi.Service;
 
 import br.com.dbc.vemser.pessoaapi.Controller.Entidades.Contato;
-import br.com.dbc.vemser.pessoaapi.Controller.Repository.ContatoRepository;
+import br.com.dbc.vemser.pessoaapi.Exceptions.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.Repository.ContatoRepository;
+import br.com.dbc.vemser.pessoaapi.Repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +13,15 @@ public class ContatoService {
 
     @Autowired
     private ContatoRepository contatoRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
 //    public ContatoService(){
 //        contatoRepository = new ContatoRepository();
 //    }
 
-    public Contato create(Integer id, Contato contato){
+    public Contato create(Integer id, Contato contato) throws Exception {
+           pessoaRepository.getById(id);
         return contatoRepository.create(id, contato);
     }
 
@@ -25,6 +30,7 @@ public class ContatoService {
     }
 
     public Contato update(Integer id, Contato contatoAtualizado) throws Exception{
+        pessoaRepository.getById(id);
         return contatoRepository.update(id, contatoAtualizado);
     }
 

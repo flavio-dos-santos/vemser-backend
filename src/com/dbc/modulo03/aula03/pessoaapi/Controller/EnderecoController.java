@@ -3,10 +3,13 @@ package br.com.dbc.vemser.pessoaapi.Controller;
 import br.com.dbc.vemser.pessoaapi.Entidades.Endereco;
 import br.com.dbc.vemser.pessoaapi.Service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,13 +35,14 @@ public class EnderecoController {
     }
 
     @PostMapping("/{idPessoa}")
-    public Endereco create (@PathVariable("idPessoa") Integer id,@RequestBody Endereco endereco){
-        endereco.setIdPessoa(id);
-        return enderecoService.create(endereco);
+    @Validated
+    public ResponseEntity<Endereco> create (@PathVariable("idPessoa") Integer id, @Valid @RequestBody Endereco endereco) throws Exception {
+                return ResponseEntity.ok(enderecoService.create(id,endereco));
     }
 
-    @PutMapping("/idEndereco")
-    public Endereco update(@PathVariable("idEndereco")Integer id,@RequestBody Endereco enderecoAtualizado) throws Exception{
+    @PutMapping("/{idEndereco}")
+    @Validated
+    public Endereco update(@PathVariable("idEndereco")Integer id,@Valid @RequestBody Endereco enderecoAtualizado) throws Exception{
         return enderecoService.update(id,enderecoAtualizado);
     }
 

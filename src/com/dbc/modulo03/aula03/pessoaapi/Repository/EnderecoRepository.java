@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.Repository;
 
 import br.com.dbc.vemser.pessoaapi.Entidades.Endereco;
+import br.com.dbc.vemser.pessoaapi.Exceptions.RegraDeNegocioException;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class EnderecoRepository {
     private AtomicInteger COUNTER = new AtomicInteger();
 
     public EnderecoRepository(){
-        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet(),1,"qno 30 conjunto k",456,"taguatinga","DF"));
+        listaEnderecos.add(new Endereco(COUNTER.incrementAndGet(),1,"residencial","qno 30 conjunto k",456,"72210215","taguatinga","DF", "Brasil"));
     }
 
     public List<Endereco> listarTodos(){
@@ -35,7 +36,8 @@ public class EnderecoRepository {
                 .collect(Collectors.toList());
     }
 
-    public Endereco create(Endereco endereco){
+    public Endereco create(Integer id, Endereco endereco){
+        endereco.setIdPessoa(id);
         endereco.setIdEndereco(COUNTER.incrementAndGet());
         listaEnderecos.add(endereco);
         return endereco;
@@ -45,12 +47,14 @@ public class EnderecoRepository {
         Endereco enderecoRecuperado = listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
-                .orElseThrow(()-> new Exception("Endereço inválido!"));
-        enderecoRecuperado.setIdPessoa(enderecoAtualizado.getIdPessoa());
+                .orElseThrow(()-> new RegraDeNegocioException("Endereço inválido!"));
         enderecoRecuperado.setLogradouro(enderecoAtualizado.getLogradouro());
         enderecoRecuperado.setNumero(enderecoAtualizado.getNumero());
         enderecoRecuperado.setCidade(enderecoAtualizado.getCidade());
         enderecoRecuperado.setEstado(enderecoAtualizado.getEstado());
+        enderecoRecuperado.setCep(enderecoAtualizado.getCep());
+        enderecoRecuperado.setPais(enderecoAtualizado.getPais());
+        enderecoRecuperado.setTipo(enderecoAtualizado.getTipo());
 
         return enderecoRecuperado;
     }
@@ -59,7 +63,7 @@ public class EnderecoRepository {
         Endereco enderecoRecuperado = listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(id))
                 .findFirst()
-                .orElseThrow(()-> new Exception("Endereço Inválido!"));
+                .orElseThrow(()-> new RegraDeNegocioException("Endereço Inválido!"));
 
         return enderecoRecuperado;
     }

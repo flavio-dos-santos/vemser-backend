@@ -7,13 +7,16 @@ import br.com.dbc.vemser.pessoaapi.Entidades.Pessoa;
 import br.com.dbc.vemser.pessoaapi.Service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")// localhost:8080/pessoa
-
+@Validated
 public class PessoaController {
 
 
@@ -30,8 +33,8 @@ public class PessoaController {
     }
 
     @PostMapping// localhost:8080/pessoa
-    public Pessoa create(@RequestBody Pessoa pessoa){
-        return pessoaService.create(pessoa);
+    public ResponseEntity<Pessoa> create(@Valid @RequestBody Pessoa pessoa){
+        return ResponseEntity.ok(pessoaService.create(pessoa));
     }
 
     @GetMapping // localhost:8080/pessoa
@@ -46,14 +49,16 @@ public class PessoaController {
 
 
     @PutMapping("/{idPessoa}") // localhost:8080/pessoa/1000
-    public Pessoa update(@PathVariable("idPessoa") Integer id,
-                         @RequestBody Pessoa pessoaAtualizar) throws Exception {
-        return pessoaService.update(id, pessoaAtualizar);
+    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
+                                 @Valid @RequestBody Pessoa pessoaAtualizar) throws Exception {
+        return ResponseEntity.ok(pessoaService.update(id, pessoaAtualizar));
     }
 
     @DeleteMapping("/{idPessoa}") // localhost:8080/pessoa/10
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
     }
+
+
 
 }

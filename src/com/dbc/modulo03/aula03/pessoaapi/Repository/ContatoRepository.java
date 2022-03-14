@@ -1,6 +1,7 @@
-package br.com.dbc.vemser.pessoaapi.Controller.Repository;
+package br.com.dbc.vemser.pessoaapi.Repository;
 
 import br.com.dbc.vemser.pessoaapi.Controller.Entidades.Contato;
+import br.com.dbc.vemser.pessoaapi.Exceptions.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ContatoRepository {
     }
 
     public Contato create(Integer id, Contato contato){
+        contato.setIdPessoa(id);
         contato.setIdContato(COUNTER.incrementAndGet());
         listaContatos.add(contato);
         return contato;
@@ -33,7 +35,7 @@ public class ContatoRepository {
         Contato contatoRecuperado = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não encontrado!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
         contatoRecuperado.setTipoContato(contatoAtualizar.getTipoContato());
         contatoRecuperado.setDescricao(contatoAtualizar.getDescricao());
         contatoRecuperado.setNumero(contatoAtualizar.getNumero());
@@ -44,7 +46,7 @@ public class ContatoRepository {
         Contato contatoRecuperado = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não encontrado!"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
         listaContatos.remove(contatoRecuperado);
         return contatoRecuperado;
     }

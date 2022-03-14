@@ -2,6 +2,7 @@ package br.com.dbc.vemser.pessoaapi.Repository;
 
 
 import br.com.dbc.vemser.pessoaapi.Entidades.Pessoa;
+import br.com.dbc.vemser.pessoaapi.Exceptions.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 
@@ -41,7 +42,7 @@ public class PessoaRepository {
         Pessoa pessoaRecuperada = listaPessoa.stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não encontrada! "));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada! "));
         pessoaRecuperada.setCpf(pessoaAtualizar.getCpf());
         pessoaRecuperada.setNome(pessoaAtualizar.getNome());
         pessoaRecuperada.setDataNascimento(pessoaAtualizar.getDataNascimento());
@@ -52,7 +53,7 @@ public class PessoaRepository {
         Pessoa pessoaRecuperada = listaPessoa.stream()
                 .filter(pessoa -> pessoa.getIdPessoa().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Pessoa não encontrada "));
+                .orElseThrow(() -> new RegraDeNegocioException("Pessoa não encontrada "));
         listaPessoa.remove(pessoaRecuperada);
         return pessoaRecuperada;
     }
@@ -61,6 +62,13 @@ public class PessoaRepository {
         return listaPessoa.stream()
                 .filter(pessoa -> pessoa.getNome().toUpperCase().contains(nome.toUpperCase()))
                 .collect(Collectors.toList());
+    }
+
+
+    public Pessoa getById(Integer id) throws Exception{
+        return  listaPessoa.stream()
+                .filter(p -> p.getIdPessoa().equals(id))
+                .findFirst().orElseThrow(() -> new RegraDeNegocioException("id da pessoa não encontrado"));
     }
 
 }

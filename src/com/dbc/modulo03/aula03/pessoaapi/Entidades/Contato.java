@@ -1,10 +1,18 @@
 package br.com.dbc.vemser.pessoaapi.Controller.Entidades;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Contato {
     private Integer idContato;
     private Integer idPessoa;
+    @NotNull
     private String tipoContato;
+    @NotEmpty
+    @Size(min=9, max=13)
     private String numero;
+    @NotEmpty
     private String descricao;
 
 
@@ -14,6 +22,7 @@ public class Contato {
         this.idContato = idContato;
         this.idPessoa = idPessoa;
         this.tipoContato = tipoContato;
+
         this.numero = numero;
         this.descricao = descricao;
     }

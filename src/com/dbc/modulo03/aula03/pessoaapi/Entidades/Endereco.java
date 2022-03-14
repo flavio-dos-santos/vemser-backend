@@ -1,20 +1,39 @@
 package br.com.dbc.vemser.pessoaapi.Entidades;
 
+import javax.validation.constraints.*;
+
 public class Endereco {
     private Integer idEndereco;
     private Integer idPessoa;
+    @NotNull
+    private String tipo;
+    @NotEmpty
+    @Size(min = 1, max = 250)
     private String logradouro;
+    @NotNull
+    @Min(1)
     private int numero;
+    @NotEmpty
+    @Size(min=1,max=8)
+    private String cep;
+    @NotEmpty
+    @Size(min = 1,max=250)
     private String cidade;
+    @NotNull
     private String estado;
+    @NotNull
+    private String pais;
 
-    public Endereco(Integer idEndereco, Integer idPessoa ,String logradouro, int numero, String cidade, String estado){
+    public Endereco(Integer idEndereco, Integer idPessoa , String tipo, String logradouro, int numero,String cep, String cidade, String estado, String pais){
         this.idEndereco = idEndereco;
         this.idPessoa = idPessoa;
+        this.tipo = tipo;
         this.logradouro =  logradouro;
         this.numero = numero;
+        this.cep = cep;
         this.cidade = cidade;
         this.estado = estado;
+        this.pais = pais;
     }
 
     public Integer getIdEndereco() {
@@ -65,15 +84,42 @@ public class Endereco {
         this.estado = estado;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
     @Override
     public String toString() {
         return "Endereco{" +
                 "idEndereco=" + idEndereco +
                 ", idPessoa=" + idPessoa +
+                ", tipo='" + tipo + '\'' +
                 ", logradouro='" + logradouro + '\'' +
                 ", numero=" + numero +
+                ", cep='" + cep + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", estado='" + estado + '\'' +
+                ", pais='" + pais + '\'' +
                 '}';
     }
 }
