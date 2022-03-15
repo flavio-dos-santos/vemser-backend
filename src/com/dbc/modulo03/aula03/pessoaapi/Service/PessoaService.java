@@ -1,64 +1,92 @@
 package br.com.dbc.vemser.pessoaapi.Service;
 
 
+import br.com.dbc.vemser.pessoaapi.DTOs.PessoaCreateDTO;
+import br.com.dbc.vemser.pessoaapi.DTOs.PessoaDTO;
 import br.com.dbc.vemser.pessoaapi.Entidades.Pessoa;
 import br.com.dbc.vemser.pessoaapi.Repository.PessoaRepository;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
+@Log
 public class PessoaService {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
 
 //public PessoaService(){
 //    pessoaRepository = new PessoaRepository();
 //}
 
-public Pessoa create(Pessoa pessoa){
-//    try {
-//        if(StringUtils.isBlank(pessoa.getNome())) {
-//            throw new Exception("O nome não pode ficar em branco!");
-//        }
-//
-//        if(ObjectUtils.isEmpty(pessoa.getDataNascimento())){
-//            throw new Exception( "Não pode inserir pessoa sem data de nascimento!");
-//        }
-//
-//        if (StringUtils.length(pessoa.getCpf())!= 11) {
-//            throw new Exception( "O cpf tem que conter 11 digitos!");
-//        }
-//
-//        return pessoaRepository.create(pessoa);
-//    }catch (Exception e){
-//        System.out.println(e.getMessage());
-//    }
-return pessoaRepository.create(pessoa);
-}
+    public PessoaDTO create(PessoaCreateDTO pessoaCreate) throws Exception {
+        log.info("chamou o método create Pessoa!");
 
-public List<Pessoa> list(){
-    return pessoaRepository.list();
-}
+        Pessoa pessoa = objectMapper.convertValue(pessoaCreate, Pessoa.class);
 
-public Pessoa update(Integer id, Pessoa pessoaAtualizar) throws Exception {
-    return pessoaRepository.update(id,pessoaAtualizar);
-}
+        Pessoa pessoaCriada = pessoaRepository.create(pessoa);
 
-public Pessoa delete(Integer id) throws Exception{
-    return pessoaRepository.delete(id);
-}
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
 
-public List<Pessoa> listByName(String name){
-    return pessoaRepository.listByName(name);
-}
-
-public Pessoa getById(Integer id) throws Exception {
-        return pessoaRepository.getById(id);
+        return pessoaDTO;
     }
+
+
+    public List<PessoaDTO> list(){
+        log.info("chamou o método list Pessoa!");
+        return pessoaRepository.list()
+                .stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+public PessoaDTO update(Integer id, PessoaCreateDTO pessoaAtualizar) throws Exception {
+    log.info("chamou o método update Pessoa!");
+    Pessoa pessoa = objectMapper.convertValue(pessoaAtualizar, Pessoa.class);
+
+    Pessoa pessoaAtt = pessoaRepository.update(id,pessoa);
+
+    PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaAtt, PessoaDTO.class);
+
+    return pessoaDTO;
+}
+
+public PessoaDTO delete(Integer id) throws Exception{
+    log.info("chamou o método delete Pessoa!");
+
+    Pessoa pessoaDeletada = pessoaRepository.delete(id);
+
+    PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaDeletada, PessoaDTO.class);
+
+    return pessoaDTO;
+}
+
+public Optional<PessoaDTO> listByName(String name){
+    log.info("chamou o método listByName Pessoa!");
+    return pessoaRepository.listByName(name)
+            .stream()
+            .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+            .findFirst();
+}
+
+public PessoaDTO getById(Integer id) throws Exception {
+    log.info("chamou o método getById Pessoa!");
+
+    Pessoa pessoaCriada = pessoaRepository.getById(id);
+
+    PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
+
+    return pessoaDTO;
+}
 
 }
 

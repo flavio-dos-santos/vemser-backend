@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.Controller;
 
-import br.com.dbc.vemser.pessoaapi.Controller.Entidades.Contato;
+import br.com.dbc.vemser.pessoaapi.DTOs.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.DTOs.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.Service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contato") //localhost:8080/contato
@@ -23,27 +25,27 @@ public class ContatoController {
 //    }
 
     @PostMapping("/{idPessoa}")
-    public ResponseEntity<Contato> create(@PathVariable("idPessoa") Integer id, @Valid @RequestBody Contato contato) throws Exception{
+    public ResponseEntity<ContatoDTO> create(@PathVariable("idPessoa") Integer id, @Valid @RequestBody ContatoCreateDTO contato) throws Exception{
         return ResponseEntity.ok(contatoService.create(id, contato));
     }
 
     @GetMapping
-    public List<Contato> list(){
+    public List<ContatoDTO> list(){
         return contatoService.list();
     }
 
     @PutMapping("/{idContato}")
-    public Contato update(@PathVariable("idContato") Integer id,@Valid @RequestBody Contato contatoAtualizado) throws Exception{
+    public ContatoDTO update(@PathVariable("idContato") Integer id, @Valid @RequestBody ContatoCreateDTO contatoAtualizado) throws Exception{
         return contatoService.update(id, contatoAtualizado);
     }
 
     @DeleteMapping("/{idContato}")
-    public Contato delete(@PathVariable("idContato") Integer id) throws Exception{
+    public ContatoDTO delete(@PathVariable("idContato") Integer id) throws Exception{
         return contatoService.delete(id);
     }
 
     @GetMapping("/{byIdPessoa}")
-    public List<Contato> listByIdPessoa(@Valid @RequestParam("idPessoa") Integer id){
+    public Optional<ContatoDTO> listByIdPessoa(@Valid @RequestParam("idPessoa") Integer id) throws Exception {
         return contatoService.listByIdPessoa(id);
     }
 }

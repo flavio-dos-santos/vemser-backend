@@ -1,44 +1,85 @@
 package br.com.dbc.vemser.pessoaapi.Service;
 
 import br.com.dbc.vemser.pessoaapi.Controller.Entidades.Contato;
-import br.com.dbc.vemser.pessoaapi.Exceptions.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.DTOs.ContatoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.DTOs.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.Repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.Repository.PessoaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
+@Log
 public class ContatoService {
 
     @Autowired
     private ContatoRepository contatoRepository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
 
 //    public ContatoService(){
 //        contatoRepository = new ContatoRepository();
 //    }
 
-    public Contato create(Integer id, Contato contato) throws Exception {
-           pessoaRepository.getById(id);
-        return contatoRepository.create(id, contato);
-    }
 
-    public List<Contato> list(){
-        return contatoRepository.list();
-    }
+public ContatoDTO create(Integer id, ContatoCreateDTO contatoCreate) throws Exception {
+    log.info("chamou o método create Contato!");
 
-    public Contato update(Integer id, Contato contatoAtualizado) throws Exception{
-        pessoaRepository.getById(id);
-        return contatoRepository.update(id, contatoAtualizado);
-    }
+    Contato contato = objectMapper.convertValue(contatoCreate, Contato.class);
 
-    public Contato delete(Integer id) throws Exception{
-        return contatoRepository.delete(id);
-    }
+    Contato contatoCriado = contatoRepository.create(id,contato);
 
-    public List<Contato> listByIdPessoa(Integer id){
-        return contatoRepository.listByIdPessoa(id);
-    }
+    ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
+
+    return contatoDTO;
 }
+
+
+    public List<ContatoDTO> list(){
+        log.info("chamou o método list Contato!");
+        return contatoRepository.list()
+                .stream()
+                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public ContatoDTO update(Integer id, ContatoCreateDTO contatoAtualizado) throws Exception{
+        log.info("chamou o método update Contato!");
+
+        Contato contato = objectMapper.convertValue(contatoAtualizado, Contato.class);
+
+        Contato contatoAtt = contatoRepository.update(id,contato);
+
+        ContatoDTO contatoDTO = objectMapper.convertValue(contatoAtt, ContatoDTO.class);
+
+        return contatoDTO;
+    }
+
+    public ContatoDTO delete(Integer id) throws Exception{
+        log.info("chamou o método delete Contato!");
+        Contato contatoDeletado = contatoRepository.delete(id);
+
+        ContatoDTO contatoDTO = objectMapper.convertValue(contatoDeletado, ContatoDTO.class);
+
+        return contatoDTO;
+    }
+
+
+
+        public Optional<ContatoDTO> listByIdPessoa(Integer id) throws Exception {
+            log.info("chamou o método listByIdPessoa Contato!");
+            return pessoaRepository.listByName(String.valueOf(id))
+                    .stream()
+                    .map(pessoa -> objectMapper.convertValue(pessoa, ContatoDTO.class))
+                    .findFirst();
+      }
+}
+

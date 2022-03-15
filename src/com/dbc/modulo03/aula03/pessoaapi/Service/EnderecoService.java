@@ -1,44 +1,86 @@
 package br.com.dbc.vemser.pessoaapi.Service;
 
+import br.com.dbc.vemser.pessoaapi.DTOs.EnderecoCreateDTO;
+import br.com.dbc.vemser.pessoaapi.DTOs.EnderecoDTO;
 import br.com.dbc.vemser.pessoaapi.Entidades.Endereco;
 import br.com.dbc.vemser.pessoaapi.Repository.EnderecoRepository;
 import br.com.dbc.vemser.pessoaapi.Repository.PessoaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Log
 public class EnderecoService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
     @Autowired
     private PessoaRepository pessoaRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    public List<Endereco> listarTodos(){
-        return enderecoRepository.listarTodos();
+    public List<EnderecoDTO> listarTodos(){
+        log.info("chamou o método listarTodos Endereco!");
+        return enderecoRepository.listarTodos()
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Endereco getByIdEndereco(Integer id) throws Exception{
-        return enderecoRepository.getByIdEndereco(id);
+    public EnderecoDTO getByIdEndereco(Integer id) throws Exception{
+        log.info("chamou o método getByIdEndereco Endereco!");
+        Endereco enderecoById = enderecoRepository.delete(id);
+
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoById, EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 
-    public List<Endereco> listByIdPessoa(Integer id){
-        return enderecoRepository.listByIdPessoa(id);
+    public List<EnderecoDTO> listByIdPessoa(Integer id){
+        log.info("chamou o método listByIdPessoa Endereco!");
+        return enderecoRepository.listByIdPessoa(id)
+                .stream()
+                .map(endereco -> objectMapper.convertValue(endereco, EnderecoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Endereco create(Integer id ,Endereco endereco)throws Exception{
-        pessoaRepository.getById(id);
-        return enderecoRepository.create(id,endereco);
+    public EnderecoDTO create(Integer id , @Valid EnderecoCreateDTO enderecoCreate)throws Exception{
+        log.info("chamou o método create Endereco!");
+
+        Endereco endereco = objectMapper.convertValue(enderecoCreate, Endereco.class);
+
+        Endereco enderecoCriado = enderecoRepository.create(id,endereco);
+
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoCriado, EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 
-    public Endereco update(Integer id, Endereco enderecoAtualizado)throws Exception{
-        pessoaRepository.getById(id);
-        return enderecoRepository.update(id,enderecoAtualizado);
+    public EnderecoDTO update(Integer id, EnderecoCreateDTO enderecoAtualizado)throws Exception{
+        log.info("chamou o método update Endereco!");
+
+        Endereco endereco = objectMapper.convertValue(enderecoAtualizado, Endereco.class);
+
+        Endereco enderecoAtt = enderecoRepository.update(id,endereco);
+
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoAtt, EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 
-    public Endereco delete(Integer id) throws Exception{
-        return enderecoRepository.delete(id);
+    public EnderecoDTO delete(Integer id) throws Exception{
+        log.info("chamou o método delete Endereco!");
+
+        Endereco enderecoDeletado = enderecoRepository.delete(id);
+
+        EnderecoDTO enderecoDTO = objectMapper.convertValue(enderecoDeletado, EnderecoDTO.class);
+
+        return enderecoDTO;
     }
 }
