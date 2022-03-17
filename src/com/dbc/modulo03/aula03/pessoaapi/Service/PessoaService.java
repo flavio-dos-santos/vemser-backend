@@ -22,6 +22,8 @@ public class PessoaService {
     private PessoaRepository pessoaRepository;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private EmailService emailService;
 
 //public PessoaService(){
 //    pessoaRepository = new PessoaRepository();
