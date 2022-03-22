@@ -80,7 +80,7 @@ public class ContatoController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção")
     })
     @GetMapping("/{byIdPessoa}")
-    public Optional<ContatoDTO> listByIdPessoa(@Valid @RequestParam("idPessoa") Integer idPessoa){
-        return Optional.ofNullable(contatoService.listByIdPessoa(idPessoa));
+    public ContatoDTO listByIdPessoa(@Valid @RequestParam("idPessoa") Integer idPessoa) throws Exception {
+        return contatoService.listByIdPessoa(idPessoa);
     }
 }

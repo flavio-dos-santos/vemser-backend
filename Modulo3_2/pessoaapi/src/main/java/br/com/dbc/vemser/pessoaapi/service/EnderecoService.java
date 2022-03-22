@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EnderecoService {
 
-    private EnderecoRepository enderecoRepository;
-    private PessoaRepository pessoaRepository;
-    private ObjectMapper objectMapper;
+    private final EnderecoRepository enderecoRepository;
+    private final PessoaRepository pessoaRepository;
+    private final ObjectMapper objectMapper;
 
     public List<EnderecoDTO> listarTodos(){
         log.info("chamou o método listarTodos Endereco!");

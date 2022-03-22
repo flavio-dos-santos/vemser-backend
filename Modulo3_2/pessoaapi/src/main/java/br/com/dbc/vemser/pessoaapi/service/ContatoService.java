@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 public class ContatoService {
 
 
-    private ContatoRepository contatoRepository;
-    private PessoaRepository pessoaRepository;
-    private ObjectMapper objectMapper;
+    private final ContatoRepository contatoRepository;
+    private final PessoaRepository pessoaRepository;
+    private final ObjectMapper objectMapper;
 
 //    public ContatoService(){
 //        contatoRepository = new ContatoRepository();
@@ -80,13 +80,11 @@ public ContatoDTO create(Integer id, ContatoCreateDTO contatoCreate) throws Exce
 
 
 
-        public ContatoDTO listByIdPessoa(Integer idPessoa){
+        public ContatoDTO listByIdPessoa(Integer idPessoa)throws Exception{
             log.info("chamou o método listByIdPessoa Contato!");
-            return (ContatoDTO) contatoRepository.findAll()
-                    .stream()
-                    .filter(contato -> contato.getIdPessoa().equals(idPessoa))
-                    .map(contatoEntity -> objectMapper.convertValue(contatoEntity, ContatoDTO.class))
-                    .collect(Collectors.toList());
+            ContatoEntity contatoEntity = contatoRepository.findById(idPessoa)
+                    .orElseThrow(()->new RegraDeNegocioException("id não encontrado!"));
+             return objectMapper.convertValue(contatoEntity, ContatoDTO.class);
       }
 }
 
