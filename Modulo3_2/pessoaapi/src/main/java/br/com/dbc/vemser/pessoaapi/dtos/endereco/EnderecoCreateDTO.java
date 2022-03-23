@@ -1,13 +1,18 @@
 package br.com.dbc.vemser.pessoaapi.dtos.endereco;
 
+import br.com.dbc.vemser.pessoaapi.entity.endereco.TipoEndereco;
+import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 
 @Getter
@@ -16,8 +21,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class EnderecoCreateDTO {
     @ApiModelProperty(value = "tipo do endereço")
+
     @NotNull
-    private String tipo;
+    private TipoEndereco tipo;
 
     @ApiModelProperty(value = "logradouro")
     @NotEmpty
@@ -46,4 +52,9 @@ public class EnderecoCreateDTO {
     @ApiModelProperty(value = "pais")
     @NotNull
     private String pais;
+
+    @JsonIgnore
+    // muitos endereços para muitas pessoas
+    @ManyToMany(mappedBy = "enderecos")
+    private Set<PessoaEntity> pessoas;
 }

@@ -1,5 +1,7 @@
-package br.com.dbc.vemser.pessoaapi.controller.Entidades;
+package br.com.dbc.vemser.pessoaapi.entity.contato;
 
+import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,11 +22,13 @@ public class ContatoEntity {
     @Column(name= "ID_CONTATO")
     private Integer idContato;
 
-    @Column(name = "ID_PESSOA")
+
+    @Column(name = "ID_PESSOA", insertable = false, updatable = false)
     private Integer idPessoa;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "TIPO")
-    private String tipoContato;
+    private TipoContato tipoContato;
 
     @Column(name = "NUMERO")
     private String numero;
@@ -32,5 +36,8 @@ public class ContatoEntity {
     @Column(name = "DESCRICAO")
     private String descricao;
 
-
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)//só quando for chamado no método
+    @JoinColumn(name = "id_pessoa", referencedColumnName = "id_pessoa")
+    private PessoaEntity pessoaEntity;
 }

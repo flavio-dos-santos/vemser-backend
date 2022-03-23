@@ -1,8 +1,11 @@
-package br.com.dbc.vemser.pessoaapi.entity;
+package br.com.dbc.vemser.pessoaapi.entity.endereco;
 
+import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +20,9 @@ public class EnderecoEntity {
     private Integer idEndereco;
 //    private Integer idPessoa;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "tipo")
-    private String tipo;
+    private TipoEndereco tipo;
 
     @Column(name = "logradouro")
     private String logradouro;
@@ -37,6 +41,12 @@ public class EnderecoEntity {
 
     @Column(name = "pais")
     private String pais;
+
+    @JsonIgnore
+    // muitos endereços para muitas pessoas
+    @ManyToMany(mappedBy = "enderecos")
+    private Set<PessoaEntity> pessoas;
+
 
 //    public Endereco(Integer idEndereco, Integer idPessoa , String tipo, String logradouro, int numero,String cep, String cidade, String estado, String pais){
 //        this.idEndereco = idEndereco;
