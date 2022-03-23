@@ -2,8 +2,6 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dtos.contato.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dtos.contato.ContatoDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTOComContatos;
-import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
@@ -13,7 +11,7 @@ import lombok.extern.java.Log;
 import br.com.dbc.vemser.pessoaapi.entity.contato.ContatoEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +56,7 @@ public ContatoDTO create(Integer id, ContatoCreateDTO contatoCreate) throws Exce
         log.info("chamou o método update Contato!");
          ContatoEntity contatoEncontrado = contatoRepository.findById(id)
                 .orElseThrow(()-> new RegraDeNegocioException(" id de contato invalido!"));
-        contatoEncontrado.setTipoContato(contatoAtualizado.getTipo());
+        contatoEncontrado.setTipoContato(contatoAtualizado.getTipoContato());
         contatoEncontrado.setDescricao(contatoAtualizado.getDescricao());
         contatoEncontrado.setNumero(contatoAtualizado.getNumero());
 

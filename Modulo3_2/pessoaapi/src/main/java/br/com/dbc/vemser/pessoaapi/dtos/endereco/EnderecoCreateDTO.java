@@ -53,6 +53,9 @@ public class EnderecoCreateDTO {
     @NotNull
     private String pais;
 
+    @ApiModelProperty(value = "complemento")
+    private String complemento;
+
     @JsonIgnore
     // muitos endereços para muitas pessoas
     @ManyToMany(mappedBy = "enderecos")

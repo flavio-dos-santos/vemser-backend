@@ -42,9 +42,12 @@ public class EnderecoEntity {
     @Column(name = "pais")
     private String pais;
 
+    @Column(name = "complemento")
+    private String complemento;
+
     @JsonIgnore
     // muitos endereços para muitas pessoas
-    @ManyToMany(mappedBy = "enderecos")
+    @ManyToMany(mappedBy = "enderecos", cascade = CascadeType.ALL)
     private Set<PessoaEntity> pessoas;
 
 

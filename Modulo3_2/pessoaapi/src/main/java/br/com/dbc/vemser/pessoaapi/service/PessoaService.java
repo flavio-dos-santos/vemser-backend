@@ -3,10 +3,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dtos.contato.ContatoDTO;
 import br.com.dbc.vemser.pessoaapi.dtos.endereco.EnderecoDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTOComContatos;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTOComEndereco;
+import br.com.dbc.vemser.pessoaapi.dtos.pessoa.*;
 import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
@@ -173,6 +170,44 @@ public PessoaDTO getById(Integer id) throws Exception {
     }
 
 
+//    public PessoaEntity findById(Integer idPessoa){
+//        retu
+//    }
+
+
+    public List<PessoaDTOComTodos> listPessoaDTOComTudo(Integer idPessoa) throws Exception{
+        List<PessoaDTOComTodos> pessoaDTOComTodos = new ArrayList<>();
+        if(idPessoa == null){
+            pessoaDTOComTodos.addAll(pessoaRepository.findAll().stream()
+                    .map(pessoa -> {
+                        PessoaDTOComTodos pessoaDTO = objectMapper.convertValue(pessoa, PessoaDTOComTodos.class);
+                        pessoaDTO.setContatos(pessoa.getContatos().stream()
+                                .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                                .collect(Collectors.toList()));
+                        pessoaDTO.setEnderecos(pessoa.getEnderecos().stream()
+                                .map(enderecoEntity -> objectMapper.convertValue(enderecoEntity, EnderecoDTO.class))
+                                .collect(Collectors.toList()));
+                        return pessoaDTO;
+                                    }).collect(Collectors.toList()));
+                        }else{
+            PessoaEntity pessoaEntity = pessoaRepository.findById(idPessoa)
+                    .orElseThrow(()-> new RegraDeNegocioException("pessoa não encontrada"));
+            PessoaDTOComTodos pessoaDTOComT = objectMapper.convertValue(pessoaEntity, PessoaDTOComTodos.class);
+            pessoaDTOComT.setEnderecos(pessoaEntity.getEnderecos().stream()
+                    .map(endereco-> objectMapper.convertValue(endereco,EnderecoDTO.class))
+                    .collect(Collectors.toList()));
+            pessoaDTOComT.setContatos(pessoaEntity.getContatos().stream()
+                    .map(contato -> objectMapper.convertValue(contato, ContatoDTO.class))
+                    .collect(Collectors.toList())
+            );
+            pessoaDTOComTodos.add(pessoaDTOComT);
+        }
+        return pessoaDTOComTodos;
+        }
+
 }
+
+
+
 
 

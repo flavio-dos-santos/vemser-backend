@@ -3,12 +3,12 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 
 
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaCreateDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTO;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTOComContatos;
-import br.com.dbc.vemser.pessoaapi.dtos.pessoa.PessoaDTOComEndereco;
+import br.com.dbc.vemser.pessoaapi.dtos.pessoa.*;
+import br.com.dbc.vemser.pessoaapi.entity.endereco.EnderecoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.endereco.TipoEndereco;
 import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
+import br.com.dbc.vemser.pessoaapi.repository.PessoaRepository;
 import br.com.dbc.vemser.pessoaapi.service.PessoaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -34,6 +34,8 @@ public class PessoaController {
 
     @Autowired
     private PessoaService pessoaService;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
 //    public PessoaController(){
 //        pessoaService = new PessoaService();
@@ -122,9 +124,9 @@ public class PessoaController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @GetMapping("/listar-por-data-periodo")
-    public List<PessoaDTO> findByDataNascimentoBetween(@RequestParam(value = "data_final") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento1,
-                                            @RequestParam(value = "data_inicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento2) throws Exception{
-        return pessoaService.findByDataNascimentoBetween(dataNascimento1, dataNascimento2);
+    public List<PessoaDTO> findByDataNascimentoBetween(@RequestParam(value = "data_inicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+                                            @RequestParam(value = "data_final") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) throws Exception{
+        return pessoaService.findByDataNascimentoBetween(inicio, fim);
     }
 
     @ApiOperation(value = "Retorna uma lista de pessoas encontradas pelo CPF")
@@ -138,14 +140,76 @@ public class PessoaController {
         return pessoaService.findByCpf(cpf);
     }
 
+    @ApiOperation(value = "Retorna uma lista de pessoas com seus devidos contatos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna uma lista de pessoas com seus devidos contatos"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
     @GetMapping("/listar-com-contatos")
     public List<PessoaDTOComContatos> listComContatos(@RequestParam(value = "id", required = false) Integer idPessoa)throws RegraDeNegocioException {
         return pessoaService.listComContatos(idPessoa);
     }
 
+    @ApiOperation(value = "Retorna uma lista de pessoas com seus devidos endereços")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna uma lista de pessoas com seus devidos endereços"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
     @GetMapping("/listar-com-enderecos")
     public List<PessoaDTOComEndereco> listComEnderecos(@RequestParam(value = "id", required = false) Integer idPessoa)throws RegraDeNegocioException{
         return pessoaService.listComEnderecos(idPessoa);
     }
+
+    @ApiOperation(value = "Retorna uma lista de pessoas com seus devidos endereços e contatos!")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna uma lista de pessoas com seus devidos endereços e contatos!"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/listar-pessoa-com-endereco-e-contato")
+    public List<PessoaDTOComTodos> listPessoaDTOComTudo(@RequestParam(value = "id", required = false) Integer idPessoa) throws Exception{
+        return pessoaService.listPessoaDTOComTudo(idPessoa);
+    }
+
+
+    //FINS DITATICOS AULA DE JPQL
+
+    @ApiOperation(value = "Retorna uma lista de pessoas que nasceram entre as datas escolhidas")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna uma lista de pessoas que nasceram entre as datas escolhidas"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/buscar-data-nascimento-inicio-fim")
+    List<PessoaEntity> findByDataNascimentoBetweenJPQL(@RequestParam(value = "data_inicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+                                                   @RequestParam(value = "data_final") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) throws Exception{
+        return pessoaRepository.findByDataNascimentoBetweenJPQL(inicio,fim);
+    }
+
+    @ApiOperation(value = "Retorna uma lista de pessoas com enderecos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna uma lista de pessoas com enderecos"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/pessoas-com-endereco")
+    List<PessoaEntity> findByPessoaComEnderecoJPQL(@RequestParam(value = "tipo") TipoEndereco tipo){
+        return pessoaRepository.findByPessoaComEnderecoJPQL(tipo);
+    }
+
+    @ApiOperation(value = "Retorna um sem teto")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Retorna um sem teto"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
+    })
+    @GetMapping("/lista-pessoa-sem-endereco")
+    List<PessoaEntity> findByPessoaSemEnderecoSQLNativo()throws Exception{
+        return pessoaRepository.findByPessoaSemEnderecoSQLNativo();
+    }
+
+
 
 }

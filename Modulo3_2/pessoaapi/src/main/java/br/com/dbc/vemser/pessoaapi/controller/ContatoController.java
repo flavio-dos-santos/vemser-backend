@@ -2,6 +2,11 @@ package br.com.dbc.vemser.pessoaapi.controller;
 
 import br.com.dbc.vemser.pessoaapi.dtos.contato.ContatoCreateDTO;
 import br.com.dbc.vemser.pessoaapi.dtos.contato.ContatoDTO;
+import br.com.dbc.vemser.pessoaapi.entity.contato.ContatoEntity;
+import br.com.dbc.vemser.pessoaapi.entity.contato.TipoContato;
+import br.com.dbc.vemser.pessoaapi.entity.endereco.TipoEndereco;
+import br.com.dbc.vemser.pessoaapi.entity.pessoa.PessoaEntity;
+import br.com.dbc.vemser.pessoaapi.repository.ContatoRepository;
 import br.com.dbc.vemser.pessoaapi.service.ContatoService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -22,6 +27,8 @@ public class ContatoController {
 
     @Autowired
     private ContatoService contatoService;
+    @Autowired
+    private ContatoRepository contatoRepository;
 
 //    public ContatoController(){
 //        contatoService = new ContatoService();
@@ -82,5 +89,34 @@ public class ContatoController {
     @GetMapping("/{byIdPessoa}")
     public ContatoDTO listByIdPessoa(@Valid @RequestParam("idPessoa") Integer idPessoa) throws Exception {
         return contatoService.listByIdPessoa(idPessoa);
+    }
+
+
+    //fins didaticos
+
+
+
+
+
+    @ApiOperation(value = "Retornar um contato pelo tipo")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "listar contato pelo tipo"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
+   @GetMapping("/contatos-tipo")
+   List<ContatoEntity> findByTipoContatoJPQL(@RequestParam (value = "tipoContato") TipoContato tipoContato){
+        return contatoRepository.findByTipoContatoJPQL(tipoContato);
+   }
+
+    @ApiOperation(value = "Retornar um contato pelo idPessoa")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "listar contato pelo idPessoa"),
+            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção")
+    })
+   @GetMapping("/contato-com-idPessoa")
+    List<ContatoEntity> findByContatoIdPessoaSQLNativo (Integer idPessoa){
+        return contatoRepository.findByContatoIdPessoaSQLNativo(idPessoa);
     }
 }
