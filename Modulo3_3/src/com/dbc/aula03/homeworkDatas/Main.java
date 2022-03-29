@@ -97,16 +97,16 @@ public class Main {
 
 
 
-        ZonedDateTime zonedDateTime1 = ZonedDateTime.now(ZoneId.of("Brazil/East"));
-        ZonedDateTime zonedDateTime2 = LocalDateTime.of(2024,9,14,18,30,00).atZone(ZoneId.of("Europe/London"));
-
-        int diffHorario = zonedDateTime2.getOffset().getTotalSeconds() - zonedDateTime1.getOffset().getTotalSeconds();
-        Period period = Period.between(zonedDateTime1.toLocalDate(), zonedDateTime2.toLocalDate());
-        Duration duration = Duration.between(zonedDateTime2.minusSeconds(diffHorario).toLocalTime(),zonedDateTime1.toLocalTime());
-        long hours = duration.abs().toHours();
-        long minutes = duration.abs().toMinutes()%60;
-        long seconds = duration.abs().toSeconds()%60;
-        System.out.println();
+//        ZonedDateTime zonedDateTime1 = ZonedDateTime.now(ZoneId.of("Brazil/East"));
+//        ZonedDateTime zonedDateTime2 = LocalDateTime.of(2024,9,14,18,30,00).atZone(ZoneId.of("Europe/London"));
+//
+//        int diffHorario = zonedDateTime2.getOffset().getTotalSeconds() - zonedDateTime1.getOffset().getTotalSeconds();
+//        Period period = Period.between(zonedDateTime1.toLocalDate(), zonedDateTime2.toLocalDate());
+//        Duration duration = Duration.between(zonedDateTime2.minusSeconds(diffHorario).toLocalTime(),zonedDateTime1.toLocalTime());
+//        long hours = duration.abs().toHours();
+//        long minutes = duration.abs().toMinutes()%60;
+//        long seconds = duration.abs().toSeconds()%60;
+//        System.out.println(period+"\n"+hours+" HORAS\n"+minutes+" MINUTOS\n"+seconds+" SEGUNDOS\n");
 
 
 //        LocalDateTime dataInicial = LocalDateTime.now();
