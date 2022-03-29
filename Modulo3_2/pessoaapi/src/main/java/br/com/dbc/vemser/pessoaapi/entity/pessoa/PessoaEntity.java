@@ -34,7 +34,7 @@ public class PessoaEntity {
     @Column(name= "EMAIL")
     private String email;
 
-
+    //CASO  O FILHO NAÔ TENHA MAIS RELAÇÂO COM QUALQUER CLASSE PAI, ELE SE ALTO REMOVE(SENDO orphanRemoval = true)
     @JsonIgnore
     // uma pessoa, muitos contatos
     @OneToMany(mappedBy="pessoaEntity", cascade = CascadeType.ALL, orphanRemoval = true)
