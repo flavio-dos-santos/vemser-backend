@@ -27,6 +27,17 @@ public class Main {
 //        System.out.println(proximoAniversairo);
 
 
+//        System.out.println("Exercicio 1: Pedir para o usuario sua data de aniversairo, retornar quantos dias e meses faltam para o proximo aniversario!");
+//        System.out.println("informe sua data de aniversário (exemplo = ano-mes-dia 0000-00-00!");
+//        String aniversarioScanner = scanner.nextLine();//
+//        int idade = 2023 - ani
+//        LocalDate now = LocalDate.now();
+//        LocalDate dataInicial = now;
+//        LocalDate dataFinal = LocalDate.parse(aniversarioScanner).plusYears(idade+1);
+//        Period proximoAniversairo = Period.between(dataInicial,dataFinal);
+//        System.out.println(proximoAniversairo);
+
+
 
 
 //                              EXERCICIO 02
@@ -85,13 +96,13 @@ public class Main {
 
 
 
-//        LocalDateTime localDateTime = LocalDateTime.of(2015, Month.APRIL, 25, 6, 30);
-//        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-//                .withLocale(new Locale("pt","BR"))));
-//        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-//                .withLocale(new Locale("in","EUA"))));
-//        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-//                .withLocale(new Locale("fr","FR"))));
+        LocalDateTime localDateTime = LocalDateTime.of(2015, Month.APRIL, 25, 6, 30);
+        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .withLocale(new Locale("pt","BR"))));
+        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .withLocale(new Locale("in","EUA"))));
+        System.out.println(localDateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .withLocale(new Locale("fr","FR"))));
 
 //                                        EXERCICIO 06
 
