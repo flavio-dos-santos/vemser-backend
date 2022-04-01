@@ -1,12 +1,16 @@
 package br.com.dbc.vemser.pessoaapi.entity.usuario;
 
+import br.com.dbc.vemser.pessoaapi.entity.GrupoEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,9 +28,21 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "senha")
     private String senha;
 
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_GRUPO",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_grupo")
+    )
+    private Set<GrupoEntity> grupos;
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public List<GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> regras = new ArrayList<>();
+        for(GrupoEntity grupoEntity: grupos){
+            regras.addAll(grupoEntity.getRegras());
+        }
+        return regras;
     }
 
     @Override

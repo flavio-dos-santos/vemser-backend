@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.config;
+package br.com.dbc.vemser.pessoaapi.config.errordecode;
 
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import feign.Response;

@@ -1,5 +1,6 @@
-package br.com.dbc.vemser.pessoaapi.config;
+package br.com.dbc.vemser.pessoaapi.config.feign;
 
+import br.com.dbc.vemser.pessoaapi.config.errordecode.SimpleErrorDecode;
 import feign.Contract;
 import feign.Feign;
 import feign.Logger;

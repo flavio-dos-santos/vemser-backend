@@ -4,6 +4,7 @@ package br.com.dbc.vemser.pessoaapi.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,8 +26,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable().and().cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/auth/cadastrar-novo-usuario").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/pessoa/**", "/endereco/**", "/contato/**").hasAnyRole("MARKETING", "USUARIO")
+                .antMatchers("/pessoa/**", "/endereco/**", "/contato/**").hasRole("USUARIO")
                 .antMatchers("/auth/**/").permitAll()
+                .antMatchers("/").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
         ;
@@ -51,9 +55,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-
-//          TODO: fazer um post no authController para gerar um novo usuario no banco cryptografando a senha
-//    public static void main(String[] args) {
-//        System.out.println(new BCryptPasswordEncoder().encode("123"));
-//    }
 }

@@ -1,6 +1,7 @@
 package br.com.dbc.vemser.pessoaapi.controller;
 
 
+import br.com.dbc.vemser.pessoaapi.dtos.CadastroUsuarioDTO;
 import br.com.dbc.vemser.pessoaapi.dtos.LoginDTO;
 import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
 import br.com.dbc.vemser.pessoaapi.security.TokenService;
@@ -12,10 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -43,7 +41,8 @@ public class AuthController {
     }
 
     @PostMapping("/cadastrar-novo-usuario")
-    public LoginDTO create(@Valid @RequestBody LoginDTO newUsuario) throws RegraDeNegocioException{
+    public LoginDTO create(@Valid @RequestBody CadastroUsuarioDTO newUsuario,
+                           @RequestParam("idGrupo")Integer idGrupo) throws Exception {
         return usuarioService.create(newUsuario);
     }
 

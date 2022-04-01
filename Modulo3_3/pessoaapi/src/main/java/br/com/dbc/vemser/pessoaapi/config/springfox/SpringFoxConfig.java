@@ -1,4 +1,4 @@
-package br.com.dbc.vemser.pessoaapi.config;
+package br.com.dbc.vemser.pessoaapi.config.springfox;
 
 
 import org.springframework.context.annotation.Bean;
