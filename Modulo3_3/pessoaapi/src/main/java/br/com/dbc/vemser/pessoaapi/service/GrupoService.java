@@ -13,8 +13,11 @@ import java.util.Optional;
 public class GrupoService {
     private final GrupoRepository grupoRepository;
 
-    public Optional<GrupoEntity> getById(Integer idGrupo) throws Exception{
-        return grupoRepository.findById(idGrupo);
+    public GrupoEntity getById(Integer idGrupo){
+        return grupoRepository.findById(idGrupo)
+                .get();
+//                .orElseThrow(()-> new RegraDeNegocioException("o grupo nao existe!"));
+
 
     }
 }

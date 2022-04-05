@@ -1,5 +1,6 @@
 package br.com.dbc.vemser.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +21,7 @@ public class RegraEntity implements Serializable, GrantedAuthority {
     private Integer idRegra;
 
     private String nome;
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "regras")
     private List<GrupoEntity> grupos;
 

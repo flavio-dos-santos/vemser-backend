@@ -41,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/cadastrar-novo-usuario")
-    public LoginDTO create(@Valid @RequestBody CadastroUsuarioDTO newUsuario) throws Exception {
+    public LoginDTO create(@Valid @RequestBody CadastroUsuarioDTO newUsuario){
         return usuarioService.create(newUsuario);
     }
 

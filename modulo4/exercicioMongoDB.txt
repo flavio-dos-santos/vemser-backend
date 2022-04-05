@@ -1,0 +1,75 @@
+//criando a sequencia para auto incrementar o idRecipe:
+
+db.counters.insert(
+   {
+      _id: "idRecipe",
+      seq: 0
+   }
+)
+
+//criando uma função getNextSequence que aceite um nome da seqüência.
+ A função usa o método findAndModify() para atomicamente incrementar
+ o valor seq e retornar esse novo valor:
+
+function getNextSequence(name) {
+   var ret = db.counters.findAndModify(
+          {
+            query: { _id: name },
+            update: { $inc: { seq: 1 } },
+            new: true
+          }
+   );
+return ret.seq;
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+//inserir receitas a collection:
+
+
+db.receitas.insert(
+{
+_id: getNextSequence("idRecipe"),
+"recipeName": "Lorem Ipsum",
+    "imageUrl": "sdhdjagdjsa",
+    "prepareRecipe": "Lorem Ipsum is simply dummy text of the printing ",
+    "prepareTime": 12,
+    "price": 10.43,
+    "calories": 3241  
+  }
+   
+)
+
+
+db.receitas.insert(
+{
+_id: getNextSequence("idRecipe"),
+"recipeName": "Ovo com queijo",
+    "imageUrl": "string",
+    "prepareRecipe": "string",
+    "prepareTime": 32,
+    "price": 12.45,
+    "calories": 213
+}
+)
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+//find caracteristica
+db.receitas.find({
+    "recipeName": "Ovo com queijo"    
+})
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+//remover intens da collecition
+
+db.receitas.remove(
+{     
+    "recipeName": "churrascodbccompany"
+  }
+)
+
+--------------------------------------------------------------------------------------------------------------------------------------

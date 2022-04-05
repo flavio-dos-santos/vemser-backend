@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Setter
@@ -12,7 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CadastroUsuarioDTO {
+    @NotNull
     private String login;
+    @NotNull
     private String senha;
-    private Set<Integer> idGrupos;
+    private Set<String> gruposTipo;
 }

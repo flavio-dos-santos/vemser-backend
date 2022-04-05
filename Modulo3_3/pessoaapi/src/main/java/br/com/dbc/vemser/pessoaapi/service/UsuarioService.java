@@ -2,10 +2,7 @@ package br.com.dbc.vemser.pessoaapi.service;
 
 import br.com.dbc.vemser.pessoaapi.dtos.CadastroUsuarioDTO;
 import br.com.dbc.vemser.pessoaapi.dtos.LoginDTO;
-import br.com.dbc.vemser.pessoaapi.entity.GrupoEntity;
 import br.com.dbc.vemser.pessoaapi.entity.usuario.UsuarioEntity;
-import br.com.dbc.vemser.pessoaapi.exceptions.RegraDeNegocioException;
-import br.com.dbc.vemser.pessoaapi.repository.GrupoRepository;
 import br.com.dbc.vemser.pessoaapi.repository.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,21 +29,22 @@ public class UsuarioService {
         return usuarioRepository.findByLogin(login);
     }
 
-    public LoginDTO create(CadastroUsuarioDTO newUsuario) throws Exception {
+    public LoginDTO create(CadastroUsuarioDTO newUsuario) {
         log.info("chamou o método create Usuário!!");
-    UsuarioEntity usuarioEntity = objectMapper.convertValue(newUsuario, UsuarioEntity.class);
-    usuarioEntity.setSenha(new BCryptPasswordEncoder().encode(usuarioEntity.getPassword()));
-        usuarioEntity.setGrupos(newUsuario.getIdGrupos().stream().map(grupo -> {
-
-            try {
-                return grupoService.getById(grupo).orElse(null);
-            } catch (Exception e) {
-                e.printStackTrace();
+        UsuarioEntity usuarioEntity = objectMapper.convertValue(newUsuario, UsuarioEntity.class);
+        usuarioEntity.setSenha(new BCryptPasswordEncoder().encode(usuarioEntity.getPassword()));
+        usuarioEntity.setGrupos(newUsuario.getGruposTipo().stream().map(grupo -> {
+            if (grupo.equalsIgnoreCase("Admin")) {
+                return grupoService.getById(1);
+            } else if (grupo.equalsIgnoreCase("Usuario")) {
+                return grupoService.getById(2);
+            } else if (grupo.equalsIgnoreCase("Marketing")) {
+                return grupoService.getById(3);
             }
             return null;
         }).collect(Collectors.toSet()));
-    UsuarioEntity senhaCryp = usuarioRepository.save(usuarioEntity);
-    LoginDTO loginDTO = objectMapper.convertValue(senhaCryp, LoginDTO.class);
-    return loginDTO;
+        UsuarioEntity senhaCryp = usuarioRepository.save(usuarioEntity);
+        LoginDTO loginDTO = objectMapper.convertValue(senhaCryp, LoginDTO.class);
+        return loginDTO;
     }
 }
