@@ -1,0 +1,89 @@
+##############################################################################################################################
+										//EXERCICIO 2
+//criação da tabela de usuario!
+//update das tabelas
+
+//criando sequencia!
+
+db.counters.insert(
+   {
+      _id: "idUser",
+      seq: 0
+   }
+)
+
+//criando uma função getNextSequence que aceite o nome da seqüência.
+ A função usa o método findAndModify() para atomicamente incrementar
+ o valor seq e retornar esse novo valor:
+
+function getNextSequence(idUser) {
+   var ret = db.counters.findAndModify(
+          {
+            query: { _id: idUser },
+            update: { $inc: { seq: 1 } },
+            new: true
+          }
+   );
+return ret.seq;
+}
+
+
+//inserir os usuarios
+//2 inserts
+
+db.usuarios.insertMany([
+{
+    _id: getNextSequence("idUser"),
+    "username": "flavio",
+    "isActive": true
+  },
+  {
+    _id: getNextSequence("idUser"),
+    "username": "ezeq",
+    "isActive": true
+  }
+  ])
+  
+  
+ // update em usuarios ou receitas
+ //2 updates
+ 
+ db.receitas.updateOne(
+   { recipeName: "Lorem Ipsum" },
+   {
+     $set: { "username": "flavio", }           
+   }
+)
+
+
+db.receitas.updateOne(
+   { recipeName: "Ovo com queijo" },
+   {
+     $set: { "username": "flavio", }
+   }
+)
+
+db.receitas.updateOne(
+   { recipeName: "churrascodbccompany" },
+   {
+     $set: { "username": "ezeq", }
+   }
+)
+
+
+//---- Delete
+db.usuarios.deleteOne( { username: "flavio" } )
+db.usuarios.deleteMany({}) // favor não usar
+
+
+
+//-----find
+
+db.receitas.find({
+   calories: { $lt: 1000 }
+})
+
+
+db.receitas.find({
+   prepareTime: { $lt: 20}
+})

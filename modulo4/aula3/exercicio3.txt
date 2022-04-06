@@ -1,0 +1,50 @@
+#########################################################################################################################
+													//exercicio 3
+													
+	db.receitas.insertMany([   
+{_id: getNextSequence("idRecipe"),
+"recipeName": "feijoada",
+    "imageUrl": "kjijsaijiasjk",
+    "prepareRecipe": "string",
+    "prepareTime": 60,
+    "price": 50,
+    "calories": 1500,
+	"username": "flavio"},	
+{_id: getNextSequence("idRecipe"),
+"recipeName": "miojo",
+    "imageUrl": "oiijikijlko",
+    "prepareRecipe": "macarrão estantaneo",
+    "prepareTime": 5,
+    "price": 5,
+    "calories": 350,
+	"username": "ezeq"}
+	])
+
+	
+	
+   
+
+//--------find especifico
+db.receitas.find({ calories: { $lt: 1000 } }).sort( { _id : -1 } ).limit(3)
+
+db.receitas.find({ }).sort( { _id : -1 } )
+
+
+//-------Delete
+db.receitas.deleteMany({ _id : { $gte : 7} })    //deletar todos que tem id igual ou maior do que 7
+
+
+
+//----------Find com limite de 4 receitas
+db.receitas.find({price: { $lt: 15 }}).sort( { _id : -1 } ).limit(4)
+
+
+
+db.receitas.find( {calories: { $lt: 1000 }}, { _id: 0, "price.uom": 0 } )
+
+
+//------urgentes
+db.orders.aggregate( [
+   { $match: { price: { $lte: 10} } },
+   { $group: { _id: "$recipeName", qtd: { $sum: "$price" } } }
+] )
