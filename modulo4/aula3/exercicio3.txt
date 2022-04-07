@@ -43,8 +43,8 @@ db.receitas.find({price: { $lt: 15 }}).sort( { _id : -1 } ).limit(4)
 db.receitas.find( {calories: { $lt: 1000 }}, { _id: 0, "price.uom": 0 } )
 
 
-//------urgentes
+//------Aggregate
 db.orders.aggregate( [
    { $match: { price: { $lte: 10} } },
-   { $group: { _id: "$recipeName", qtd: { $sum: "$price" } } }
+   { $group: { _id: "$recipeName", calories: { $sum: "$calories" } } }
 ] )
