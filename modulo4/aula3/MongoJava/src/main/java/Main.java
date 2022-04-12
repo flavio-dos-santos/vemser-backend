@@ -59,7 +59,7 @@ public class Main {
 //        if (encontrado != null){
 //            System.out.println("receita encontrada!");
 //
-//            Bson updateValue = new Document("calories",288);
+//            Bson updateValue = new Document("calories",300);
 //            Bson updateObject = new Document("$set",updateValue);
 //            receitas.updateOne(encontrado,updateObject);
 //            System.out.println("receita atualizada!");
@@ -72,7 +72,7 @@ public class Main {
 //        if (usuarioEncontrado != null){
 //            System.out.println("usuario encontrada!");
 //
-//            Bson updateValue = new Document("username","marcos");
+//            Bson updateValue = new Document("username","rafael");
 //            Bson updateObject = new Document("$set",updateValue);
 //            receitas.updateOne(usuarioEncontrado,updateObject);
 //            System.out.println("usuario atualizado!");
@@ -91,7 +91,7 @@ public class Main {
 //        Document receita = receitas.find(new Document("recipeName" , "Mastruz com leite")).first();
 //        System.out.println(receita);
 
-        // Aggregate
+//         Aggregate
         System.out.println("-- Receitas");
         receitas.aggregate(
                 Arrays.asList(
