@@ -19,9 +19,9 @@ public class Main {
         String uri = "mongodb://root:root@localhost:27017/?authSource=admin&readPreference=primary&directConnection=true&ssl=false";
         MongoClient mongoClient = MongoClients.create(uri);
 
-        MongoDatabase mongoDatabase = mongoClient.getDatabase("vemserpesadelonacozinha");
+        MongoDatabase mongoDatabase = mongoClient.getDatabase("veiculoprodutorconsumidor");
 
-        MongoCollection<Document> receitas = mongoDatabase.getCollection("receitas");
+        MongoCollection<Document> veiculo = mongoDatabase.getCollection("sensorveiculo");
         MongoCollection<Document> usuarios = mongoDatabase.getCollection("usuarios");
 
 
