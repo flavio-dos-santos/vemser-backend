@@ -23,15 +23,16 @@ public class ConsumerService {
     private final ObjectMapper objectMapper;
 
     @KafkaListener(
-            topics = "${kafka.topic}", // meu-primeiro-topico
+            topics = "${kafka.topic}", // nome do topico
             groupId = "group",
             containerFactory = "listenerContainerFactory")
     public void informacaoConsumidor(@Payload String message,
                         @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
                         @Header(KafkaHeaders.OFFSET) Long offset) throws JsonProcessingException {
-//        VeiculoDTO veiculoDTO = ObjectMapper.readValue(message, VeiculoDTO.class);
-//        System.out.println(veiculoDTO);
-        log.info("#### offset -> '{}' key -> '{}' -> Consumed Object message -> '{}'  ", offset, key, message);
+        VeiculoDTO veiculoDTO = objectMapper.readValue(message, VeiculoDTO.class);
+        insertOne(veiculoDTO);
+        System.out.println(veiculoDTO);
+        log.info("#### offset -> '{}' key -> '{}' -> Consumed Object message -> '{}'  ", offset, key, veiculoDTO);
     }
 
     public VeiculoDTO insertOne(VeiculoDTO veiculo){

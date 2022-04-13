@@ -28,9 +28,7 @@ public class ProdutorService {
     private String topic;
 
 
-    public void enviarMensagem(String mensagem) {
-        enviar(mensagem);
-    }
+
 
     public void enviarMensagemSensor(VeiculoDTO veiculoDTO) throws JsonProcessingException {
         String mensagem = objectMapper.writeValueAsString(veiculoDTO);

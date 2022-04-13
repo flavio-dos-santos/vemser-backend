@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class ProdutorController {
     private final ProdutorService produtorService;
 
-    @PostMapping("/enviar")
-    private void enviar(@RequestBody String mensagem) {
-        produtorService.enviarMensagem(mensagem);
-    }
+
     @PostMapping("/enviar-sensor")
-    public void enviarMensagemSensor(@RequestParam("veiculoDTO") VeiculoDTO veiculoDTO) throws JsonProcessingException{
+    public void enviarMensagemSensor(@RequestBody VeiculoDTO veiculoDTO) throws JsonProcessingException{
         produtorService.enviarMensagemSensor(veiculoDTO);
     }
 
