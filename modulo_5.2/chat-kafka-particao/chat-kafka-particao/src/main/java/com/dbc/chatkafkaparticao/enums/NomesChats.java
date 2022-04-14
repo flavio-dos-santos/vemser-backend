@@ -1,6 +1,4 @@
-package com.dbc.chatkafka.enums;
-
-import java.util.List;
+package com.dbc.chatkafkaparticao.enums;
 
 public enum NomesChats {
     GERAL("chat-geral"), ANA("chat-ana"), EZEQUIAS("chat-ezequias"), FLAVIO("chat-flavio"), FELIPE("chat-felipe"),

@@ -1,9 +1,9 @@
-package com.dbc.chatkafka.controller;
+package com.dbc.chatkafkaparticao.controller;
 
 
-import com.dbc.chatkafka.dto.UsuarioDTO;
-import com.dbc.chatkafka.enums.NomesChats;
-import com.dbc.chatkafka.service.ProdutorService;
+import com.dbc.chatkafkaparticao.dto.UsuarioDTO;
+import com.dbc.chatkafkaparticao.enums.NomesChats;
+import com.dbc.chatkafkaparticao.service.ProdutorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

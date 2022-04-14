@@ -1,7 +1,7 @@
-package com.dbc.chatkafka.service;
+package com.dbc.chatkafkaparticao.service;
 
-import com.dbc.chatkafka.dto.UsuarioDTO;
-import com.dbc.chatkafka.enums.NomesChats;
+import com.dbc.chatkafkaparticao.dto.UsuarioDTO;
+import com.dbc.chatkafkaparticao.enums.NomesChats;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,18 +27,23 @@ public class ProdutorService {
     private final KafkaTemplate<String,String> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
+    @Value("${kafka.topic}")
+    private String topic; //topico
+
     public void enviarMensagem(UsuarioDTO usuarioDTO, List<NomesChats> chats) throws JsonProcessingException {
     String mensagem = objectMapper.writeValueAsString(usuarioDTO);
-        for (NomesChats nome: chats
+    List<Integer> particoes = chats.stream().map(chat -> chat.ordinal()).collect(Collectors.toList());
+        for (Integer particao: particoes
              ) {
-            enviar(mensagem, nome);
+            enviar(mensagem, particao);
         }
     }
 
-    public void enviar(String mensagem, NomesChats chats){
+    public void enviar(String mensagem, Integer particao){
         Message<String> message = MessageBuilder.withPayload(mensagem)
-                .setHeader(KafkaHeaders.TOPIC, chats.getNome()) //topico
+                .setHeader(KafkaHeaders.TOPIC, topic) //topico
                 .setHeader(KafkaHeaders.MESSAGE_KEY, UUID.randomUUID().toString())
+                .setHeader(KafkaHeaders.PARTITION_ID, particao)
                 .build();
 
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(message);
